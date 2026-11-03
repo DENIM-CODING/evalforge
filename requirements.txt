@@ -1,0 +1,21 @@
+# API
+fastapi
+uvicorn[standard]
+
+# LLM Evaluation
+deepeval==4.3.2
+
+# Configuration
+python-dotenv
+
+# HTTP
+httpx
+
+# Database
+SQLAlchemy>=2.0,<3.0
+psycopg[binary]>=3.2,<4.0
+alembic>=1.14,<2.0
+
+# Testing
+pytest
+pytest-asyncio

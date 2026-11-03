@@ -7,7 +7,12 @@ from pathlib import Path
 REPORTS_DIR = Path(__file__).parent.parent / "reports"
 
 
-def generate_report(evaluation_result, dataset, provider="unknown"):
+def generate_report(
+    evaluation_result,
+    dataset,
+    provider="unknown",
+    metric_configuration=None,
+):
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
     test_results = evaluation_result.test_results
@@ -82,6 +87,11 @@ def generate_report(evaluation_result, dataset, provider="unknown"):
         1 for test in test_cases if test["passed"]
     )
 
+    if metric_configuration is None:
+        metric_configuration = {}
+    elif hasattr(metric_configuration, "model_dump"):
+        metric_configuration = metric_configuration.model_dump()
+
     report = {
         "project": "EvalForge",
         "provider": provider,
@@ -96,6 +106,7 @@ def generate_report(evaluation_result, dataset, provider="unknown"):
             ),
         },
         "metrics": metric_summary,
+        "metric_configuration": metric_configuration,
         "test_cases": test_cases,
     }
 

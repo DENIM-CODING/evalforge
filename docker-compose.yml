@@ -1,0 +1,12 @@
+services:
+  evalforge:
+    build: .
+    container_name: evalforge-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./reports:/app/reports
+      - ./datasets:/app/datasets
+    restart: unless-stopped
